@@ -1,20 +1,42 @@
-// src/js/main.js
-import { pi, power, Foo } from './utils/lib';
+import videojs from 'video.js';
+import 'videojs-contrib-hls';
 
-console.log(pi);
-console.log(power(pi, pi));
+const options = {
+  width: 640,
+  height: 264,
+  poster: 'https://avatars.githubusercontent.com/u/2245205?size=120',
+  controls: true,
+  autoplay: true,
+  preload: "none",
+  tectOrder: ["html5", "flash"],
+  playbackRates: [0.5, 1, 1.5, 2, 4],
+  sources: [{
+    src: "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
+    type: "application/x-mpegURL"
+  }],
+  ControlBar: {
+    children: [
+      "playToggle",
+      "volumePanel",
+      "progressControl",
+      "currentTimeDisplay",
+      "timeDivider",
+      "durationDisplay",
+      "playbackRateMenuButton",
+      "fullscreenToggle"
+    ]
+  }
+};
 
-const f = new Foo();
-console.log(f.foo());
-console.log(f.bar());
+const videoPlayer = videojs('my-video', options, function onPlayerReady() {
+  videojs.log('Your player is ready!');
 
-// polyfill이 필요한 코드
-console.log(new Promise((resolve, reject) => {
-  setTimeout(() => resolve(1), 100);
-}));
+  // In this context, `this` is the player that was created by Video.js.
+  this.play();
 
-// polyfill이 필요한 코드
-console.log(Object.assign({}, { x: 1 }, { y: 2 }));
+  // How about an event listener?
+  this.on('ended', function () {
+    videojs.log('Awww...over so soon?!');
+  });
+});
 
-// polyfill이 필요한 코드
-console.log(Array.from([1, 2, 3], v => v + v));

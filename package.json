@@ -21,6 +21,9 @@
     "webpack-cli": "^3.3.12"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.10.4"
+    "@babel/polyfill": "^7.10.4",
+    "videojs": "^1.0.0",
+    "videojs-contrib-hls": "^5.15.0",
+    "videojs-flash": "^2.2.1"
   }
 }
